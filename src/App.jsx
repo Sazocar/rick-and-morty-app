@@ -1,23 +1,53 @@
+import { useEffect, useReducer, useState } from 'react'
+import { urlFetch } from './services/api'
+import { characterReducer } from './reducer/characterReducer'
 import './App.css'
 
 function App() {
+
+  const [state, dispatch] = useReducer(characterReducer, 1)
+  const [data, setData] = useState([])
+
+  const getCharacter = async (characterID) => {
+    const response = await urlFetch(characterID)
+    setData(response)
+    console.log(response)
+  }
+
+  const handleDecrement = () => {
+    dispatch({ type: 'decrementCounter' })
+  }
+  const handleIncrement = () => {
+    dispatch({ type: 'incrementCounter' })
+  }
+
+  useEffect(() => {
+    getCharacter(state)
+  }, [state])
+
   return (
-    <div className="container">
-      <div className="image-container">
-        <img src="https://rickandmortyapi.com/api/character/avatar/1.jpeg" alt="Rick Sanchez" />
+    <>
+      <div className="container">
+        <div className="image-container">
+          <img src={data.image} alt={data.name} />
+        </div>
+        <div className="info-container">
+          <h2>{data.name}</h2>
+          <ul>
+            <li>{data.status}</li>
+            <li>{data.species}</li>
+            <li>{data.gender}</li>
+            <li>{`Origin: ${data.origin?.name}`}</li>
+            <li>{`Last known location: ${data.location?.name}`}</li>
+          </ul>
+        </div>
       </div>
-      <div className="info-container">
-        <h2>Rick Sanchez</h2>
-        {/* <p>An eccentric and alcoholic scientist who is the father of Beth Smith, and the grandfather of Morty Smith and Summer Smith.</p> */}
-        <ul>
-          <li>Status: Alive</li>
-          <li>Species: Human</li>
-          <li>Gender: Male</li>
-          <li>Origin: Earth (Replacement Dimension)</li>
-          <li>Last known location: Space Rickcation</li>
-        </ul>
-      </div>
-    </div>
+      <section className="button-container">
+        <button disabled={state === 1 } onClick={handleDecrement}>Previous</button>
+        <button onClick={handleIncrement}>Next</button>
+
+      </section>
+    </>
   )
 }
 
