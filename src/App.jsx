@@ -8,7 +8,7 @@ function App() {
       </div>
       <div className="info-container">
         <h2>Rick Sanchez</h2>
-        <p>An eccentric and alcoholic scientist who is the father of Beth Smith, and the grandfather of Morty Smith and Summer Smith.</p>
+        {/* <p>An eccentric and alcoholic scientist who is the father of Beth Smith, and the grandfather of Morty Smith and Summer Smith.</p> */}
         <ul>
           <li>Status: Alive</li>
           <li>Species: Human</li>
