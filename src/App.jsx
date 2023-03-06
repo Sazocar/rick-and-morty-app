@@ -34,9 +34,9 @@ function App() {
         <div className="info-container">
           <h2>{data.name}</h2>
           <ul>
-            <li>{data.status}</li>
+            <li>{`Status: ${data.status}`}</li>
             <li>{data.species}</li>
-            <li>{data.gender}</li>
+            <li>{`Gender: ${data.gender}`}</li>
             <li>{`Origin: ${data.origin?.name}`}</li>
             <li>{`Last known location: ${data.location?.name}`}</li>
           </ul>
